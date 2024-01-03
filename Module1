@@ -1,0 +1,231 @@
+Sub Create_Security_New_Entity(e As String, s As String, area As Range)
+'
+' Create GroupsInGroups relationships for a new entity
+'
+
+Dim e_read As String
+Dim s_read As String
+Dim e_write As String
+Dim s_write As String
+
+e_read = "E_" & e & "_Read1"
+s_read = "S_" & s & "_Read"
+e_write = "E_" & e & "_Write1"
+s_write = "S_" & s & "_Write"
+
+area.Cells(1, 1).Value = e_read
+area.Cells(1, 2).Value = s_read
+area.Cells(2, 1).Value = e_write
+area.Cells(2, 2).Value = s_write
+
+
+End Sub
+
+Sub Create_Security_New_Entities()
+'
+' Create GroupsInGroups relationships for multiple new entities
+'
+
+Dim newEntities As Range
+
+    'Get a list of entities via user input
+      On Error Resume Next
+        Set newEntities = Application.InputBox( _
+          Title:="Entities", _
+          Prompt:="Select the list of entities", _
+          Type:=8)
+      On Error GoTo 0
+    
+    'Test to ensure User Did not cancel
+      If newEntities Is Nothing Then Exit Sub
+  
+Dim startArea As Range
+  
+    'Select the first cell to paste results in
+      On Error Resume Next
+        Set startArea = Application.InputBox( _
+          Title:="Paste Area", _
+          Prompt:="Select the first cell to paste results in", _
+          Type:=8)
+      On Error GoTo 0
+    
+    'Test to ensure User Did not cancel
+      If startArea Is Nothing Then Exit Sub
+      
+Dim pasteRow As Integer
+pasteRow = startArea.Row
+
+    'Loops through each item in the list and creates the respective GroupsInGroups relationships
+    For Each entity In newEntities.Rows
+        Call Create_Security_New_Entity(entity.Value, "Actual", Cells(pasteRow, startArea.Column))
+        pasteRow = pasteRow + 2
+    Next
+
+End Sub
+
+Sub Create_Security_New_WF(wf As String, s As String, area As Range)
+'
+' Create GroupsInGroups relationships for a new workflow
+'
+
+        'Dim e_read As String
+        ''Dim s_read As String
+        'Dim e_write As String
+        ''Dim s_write As String
+        'Dim wf_access As String
+        'Dim wf_execute As String
+        'Dim wf_certify As String
+        'Dim wf_e As String
+        '
+        'e_read = "E_" & wf & "_Read1"
+        ''s_read = "S_" & s & "_Read"
+        'e_write = "E_" & wf & "_Write1"
+        ''s_write = "S_" & s & "_Write"
+        'wf_accessor = "WF_" & wf & "_Accessor"
+        'wf_executor = "WF_" & wf & "_Executor"
+        'wf_certifier = "WF_" & wf & "_Certifier"
+        'wf_e = "WF_" & wf & "_E"
+        '
+        'area.Cells(1, 1).Value = e_read
+        'area.Cells(1, 2).Value = wf_accessor
+        'area.Cells(2, 1).Value = wf_executor
+        'area.Cells(2, 2).Value = wf_accessor
+        'area.Cells(3, 1).Value = wf_certifier
+        'area.Cells(3, 2).Value = wf_accessor
+        'area.Cells(4, 1).Value = e_write
+        'area.Cells(4, 2).Value = wf_executor
+        ''area.Cells(5, 1).Value = wf_certifier
+        ''area.Cells(5, 2).Value = s_read
+        'area.Cells(6, 1).Value = wf_certifier
+        'area.Cells(6, 2).Value = e_read
+        'area.Cells(7, 1).Value = wf_certifier
+        'area.Cells(7, 2).Value = wf_executor
+
+Dim e_read As String
+Dim e_write As String
+Dim s_read As String
+Dim s_write As String
+Dim wf_a As String
+Dim wf_e As String
+Dim wf_c As String
+Dim wf_e_c As String
+
+e_read = "E_" & wf & "_Read1"
+s_read = "S_" & s & "_Read"
+e_write = "E_" & wf & "_Write1"
+s_write = "S_" & s & "_Write"
+wf_a = "WF_" & wf & "_A"
+wf_e = "WF_" & wf & "_E"
+wf_c = "WF_" & wf & "_C"
+wf_e_c = "WF_" & wf & "_E_C"
+
+area.Cells(1, 1).Value = wf_a
+area.Cells(1, 2).Value = e_read
+area.Cells(2, 1).Value = wf_a
+area.Cells(2, 2).Value = s_read
+area.Cells(3, 1).Value = wf_e
+area.Cells(3, 2).Value = e_write
+area.Cells(4, 1).Value = wf_e
+area.Cells(4, 2).Value = s_write
+area.Cells(5, 1).Value = wf_e_c
+area.Cells(5, 2).Value = wf_a
+area.Cells(6, 1).Value = wf_c
+area.Cells(6, 2).Value = wf_e_c
+area.Cells(7, 1).Value = wf_e
+area.Cells(7, 2).Value = wf_e_c
+
+End Sub
+
+Sub Create_Security_New_WFs()
+'
+' Create GroupsInGroups relationships for multiple new workflows
+'
+
+Dim newWFs As Range
+
+    'Get a list of workflows via user input
+      On Error Resume Next
+        Set newWFs = Application.InputBox( _
+          Title:="Workflows", _
+          Prompt:="Select the list of workflows", _
+          Type:=8)
+      On Error GoTo 0
+    
+    'Test to ensure User Did not cancel
+      If newWFs Is Nothing Then Exit Sub
+  
+Dim startArea As Range
+  
+    'Select the first cell to paste results in
+      On Error Resume Next
+        Set startArea = Application.InputBox( _
+          Title:="Paste Area", _
+          Prompt:="Select the first cell to paste results in", _
+          Type:=8)
+      On Error GoTo 0
+    
+    'Test to ensure User Did not cancel
+      If startArea Is Nothing Then Exit Sub
+      
+Dim pasteRow As Integer
+pasteRow = startArea.Row
+
+    'Loops through each item in the list and creates the respective GroupsInGroups relationships
+    For Each wf In newWFs.Rows
+        Call Create_Security_New_WF(wf.Value, "Actual", Cells(pasteRow, startArea.Column))
+        pasteRow = pasteRow + 7
+    Next
+
+End Sub
+
+Sub Create_Security_New_Users()
+'
+' Create UsersInGroups relationships for multiple new users
+'
+
+Dim newWFs As Range
+
+    'Get a list of users via user input
+      On Error Resume Next
+        Set newUsers = Application.InputBox( _
+          Title:="Users", _
+          Prompt:="Select the list of users", _
+          Type:=8)
+      On Error GoTo 0
+    
+    'Test to ensure User Did not cancel
+      If newUsers Is Nothing Then Exit Sub
+  
+Dim startArea As Range
+  
+    'Select the first cell to paste results in
+      On Error Resume Next
+        Set startArea = Application.InputBox( _
+          Title:="Paste Area", _
+          Prompt:="Select the first cell to paste results in", _
+          Type:=8)
+      On Error GoTo 0
+    
+    'Test to ensure User Did not cancel
+      If startArea Is Nothing Then Exit Sub
+      
+Dim pasteRow As Integer
+pasteRow = startArea.Row
+
+    'Loops through each item in the list and creates the respective UsersInGroups relationships
+    For Each Row In newUsers.Rows
+        Cells(pasteRow, startArea.Column).Cells(1, 1).Value = Row.Cells(1, 1).Value
+        
+        If Row.Cells(1, 3) = "Access" Then
+            Cells(pasteRow, startArea.Column).Cells(1, 2).Value = "WF_" & Row.Cells(1, 2).Value & "_A"
+        ElseIf Row.Cells(1, 3) = "Modify" Then
+            Cells(pasteRow, startArea.Column).Cells(1, 2).Value = "WF_" & Row.Cells(1, 2).Value & "_E"
+        ElseIf Row.Cells(1, 3) = "Certify" Then
+            Cells(pasteRow, startArea.Column).Cells(1, 2).Value = "WF_" & Row.Cells(1, 2).Value & "_C"
+        End If
+        
+        pasteRow = pasteRow + 1
+        
+    Next
+
+End Sub
