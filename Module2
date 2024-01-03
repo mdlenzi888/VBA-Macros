@@ -1,0 +1,40 @@
+Private Declare PtrSafe Function HypMenuVRefreshAll Lib "HsAddin.dll" () As Long
+
+
+Sub Create_Files_From_List()
+
+' Saves a new file for each item in list
+
+    Application.DisplayAlerts = False
+    
+'    myFilePath = ActiveWorkbook.Path
+    myFilePath = "C:\Users\MatthewLenzi\OneDrive - Black Diamond Advisory\Documents\RRX\DV Templates\Macroed"
+    myFilePath = Replace(myFilePath, "/", "\")
+    myFilePath = Replace(myFilePath, "http:", "")
+    myFilePath = Replace(myFilePath, "https:", "")
+'    myFilePath = Replace(myFilePath, " ", "%20")
+    
+    Dim entities As Range
+
+        'Get a list of entities via user input
+        On Error Resume Next
+            Set entities = Application.InputBox( _
+              Title:="Entities", _
+              Prompt:="Select the list of entities", _
+              Type:=8)
+        On Error GoTo 0
+    
+        'Test to ensure user did not cancel
+        If entities Is Nothing Then Exit Sub
+    
+    'Loops through each item in the list, changes Cell B3, and creates a copy of the workbook
+    For Each entity In entities.Rows
+        Range("B3").Value = entity
+        Call HypMenuVRefreshAll
+'        MsgBox (myFilePath & "\" & Range("B3").Value & ".xlsx")
+        ActiveWorkbook.SaveCopyAs myFilePath & "\" & Range("B3").Value & ".xlsx"
+    Next
+
+End Sub
+
+
