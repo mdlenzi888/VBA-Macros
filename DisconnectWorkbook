@@ -1,0 +1,27 @@
+Sub Break_Hyperion()
+
+' Breaks all Hyperion links from the file and saves as a copy
+
+Links = ActiveWorkbook.LinkSources(Type:=xlLinkTypeExcelLinks)
+
+For Each link In Links
+    If link Like "*\Oracle\SmartView\*" Then
+        ActiveWorkbook.BreakLink _
+            Name:=link, _
+            Type:=xlLinkTypeExcelLinks
+    End If
+Next
+
+End Sub
+
+Sub Break_OneStream()
+
+' Breaks all OneStream links from the file
+
+Links = ActiveWorkbook.LinkSources(Type:=xlLinkTypeOLELinks)
+
+For Each link In Links
+    MsgBox (link)
+Next
+
+End Sub
